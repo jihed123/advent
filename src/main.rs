@@ -1,12 +1,18 @@
 use std::fs;
+use std::time::Instant;
 fn main() {
+    let start = Instant::now();
     // read file
     let filepath: &str = "./input1.txt";
-    let contents: String =
-        fs::read_to_string(filepath).expect("Something went wrong reading the file");
-
+    let contents = match fs::read_to_string(filepath) {
+        Ok(contents) => contents,
+        Err(e) => {
+            eprintln!("Failed to read file: {}", e);
+            return;
+        }
+    };
     // read first line
-    let lines: std::str::Lines<'_> = contents.lines();
+    let lines = contents.lines();
     let mut number_final: Vec<i32> = Vec::new();
     let number_tuples: Vec<(&str, usize)> = vec![
         ("nine", 9),
@@ -48,16 +54,12 @@ fn main() {
 
         // keep the first and last number in the array
         if numbers.len() == 1 {
-            let mut number_str: String = numbers[0].to_string();
-            number_str.push_str(&numbers[0].to_string());
-            number_final.push(number_str.parse::<i32>().unwrap());
-            println!("\nModified line: {}", modifiedline);
-            // print!("\n{} ", number_str);
+            let number = numbers[0] * 10 + numbers[0]; // Combine numbers directly
+            number_final.push(number);
+            // println!("\nModified line: {}", modifiedline);
         } else if numbers.len() >= 2 {
-            let mut number_str: String = numbers[0].to_string();
-            number_str.push_str(&numbers[numbers.len() - 1].to_string());
-            number_final.push(number_str.parse::<i32>().unwrap());
-            // print!("\n{} ", number_str);
+            let number = numbers[0] * 10 + numbers[numbers.len() - 1]; // Combine numbers directly
+            number_final.push(number);
         } else {
             panic!("Something went wrong at x line");
         }
@@ -66,10 +68,10 @@ fn main() {
     // println!("\nNumbers: {:?}", number_final);
     // give sum of number_final
 
-    let mut sum: i32 = 0;
-    for i in 0..number_final.len() {
-        sum += number_final[i];
-    }
+    let sum: i32 = number_final.iter().sum();
     println!("Sum: {}", sum);
     println!("\nDone!");
+
+    let duration = start.elapsed();
+    println!("Time elapsed in whole program is: {:?}", duration);
 }

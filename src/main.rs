@@ -25,9 +25,7 @@ fn main() {
 
         for i in 0..numberstr.len() {
             if currentline.contains(numberstr[i]) {
-                // println!("{} is in the line", numberstr[i]);
-                let slice: &str = &currentline[currentline.find(numberstr[i]).unwrap()..];
-                println!("Slice: {}", slice);
+                println!("number in letter: {}", numberstr[i]);
             }
         }
 

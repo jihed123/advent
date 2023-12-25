@@ -1,5 +1,5 @@
-use std::fs;
 use std::time::Instant;
+use std::{fs, vec};
 fn main() {
     let start = Instant::now();
 
@@ -15,55 +15,72 @@ fn main() {
 
     // read first line
     let lines = contents.lines();
-    let mut _number_final: Vec<i32> = Vec::new();
+    let mut number_final: Vec<i32> = Vec::new();
     let _color: Vec<&str> = vec!["red", "green", "blue"];
 
-    for currentline in lines.take(1) {
+    for currentline in lines {
         // print!("{} ", currentline);
 
         let modifiedline: &str = &currentline[8..];
         // modifiedline = modifiedline.replace(" ", "");
         // print!("{} ", modifiedline);
         let linevec: Vec<&str> = modifiedline.split(|c| c == ';' || c == ',').collect();
-        let mut maxred: i32;
-        let mut maxgreen: i32;
-        let mut maxblue: i32;
-        for i in 0..linevec.len() {
-            if linevec[i].contains("red") {
+        let mut maxred: i32 = 0;
+        let mut maxgreen: i32 = 0;
+        let mut maxblue: i32 = 0;
+        for line in &linevec {
+            if line.contains("red") {
                 // print!("{} ", linevec[i]);
-                for j in 0..linevec[i].len() {
-                    if linevec[i].chars().nth(j).unwrap().is_ascii_digit() {
-                        print!("{} ", linevec[i].chars().nth(j).unwrap());
+                let numbers: Vec<i32> = line
+                    .split_whitespace()
+                    .filter_map(|word| word.parse::<i32>().ok())
+                    .collect();
+
+                for num in numbers {
+                    if num > maxred {
+                        maxred = num;
+                    }
+                }
+            } else if line.contains("green") {
+                let numbers: Vec<i32> = line
+                    .split_whitespace()
+                    .filter_map(|word| word.parse::<i32>().ok())
+                    .collect();
+
+                for num in numbers {
+                    if num > maxgreen {
+                        maxgreen = num;
+                    }
+                }
+            } else if line.contains("blue") {
+                let numbers: Vec<i32> = line
+                    .split_whitespace()
+                    .filter_map(|word| word.parse::<i32>().ok())
+                    .collect();
+
+                for num in numbers {
+                    if num > maxblue {
+                        maxblue = num;
                     }
                 }
             }
-            // print!("{} ", linevec[i]);
         }
-        // println!("\nmodifiedline: {:?}", linevec[1]);
 
-        // for color_str in &color {
-        //     if modifiedline.contains(color_str) {
-        //         modifiedline = modifiedline.replace(color_str, &color_str.len().to_string());
-        //     }
-        // }
-        // let currentline_chars: Vec<char> = modifiedline.chars().collect();
-        // let mut numbers: Vec<i32> = Vec::new();
-        // for i in 0..currentline_chars.len() {
-        //     if currentline_chars[i].is_ascii_digit() {
-        //         numbers.push(currentline_chars[i].to_digit(10).unwrap() as i32);
-        //     }
-        // }
+        // println!("\nmax red : {} ", maxred);
+        // println!("max green : {} ", maxgreen);
+        // println!("max blue : {} ", maxblue);
 
-        // // keep the first and last number in the array
-        // if numbers.len() == 1 {
-        //     let number = numbers[0] * 10 + numbers[0]; // Combine numbers directly
-        //     number_final.push(number);
-        // } else if numbers.len() >= 2 {
-        //     let number = numbers[0] * 10 + numbers[numbers.len() - 1]; // Combine numbers directly
-        //     number_final.push(number);
-        // }
+        let s = currentline.split(":").collect::<Vec<&str>>()[0];
+        // print!("{}", s);
+        let game_number: i32 = s[5..].trim().parse().expect("Not a valid number");
+        // println!("game number: {}", game_number);
+        if maxred <= 12 && maxgreen <= 13 && maxblue <= 14 {
+            number_final.push(game_number);
+        }
     }
-
+    // print!("Numbers: {:?}", number_final);
+    let sum: i32 = number_final.iter().sum();
+    println!("Sum: {}", sum);
     let duration = start.elapsed();
     println!("Time elapsed in whole program is: {:?}", duration);
 }

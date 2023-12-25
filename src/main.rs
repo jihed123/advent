@@ -15,20 +15,31 @@ fn main() {
 
     // read first line
     let lines = contents.lines();
-    let mut number_final: Vec<i32> = Vec::new();
-    let color = vec!["red", "green", "blue"];
+    let mut _number_final: Vec<i32> = Vec::new();
+    let _color: Vec<&str> = vec!["red", "green", "blue"];
 
-    for line in lines.take(1) {
-        let currentline: &str = line;
-        let mut modifiedline: String = String::from(currentline);
-        print!("{} ", currentline);
+    for currentline in lines.take(1) {
+        // print!("{} ", currentline);
 
-        // modifiedline = modifiedline.replace("Game", "");
-        modifiedline = modifiedline.drain(5..).collect::<String>();
-
-        // v.split(' ').collect::<Vec<&str>>();
-        // .join(" ");
-        println!("\nmodifiedline: {:?}", modifiedline);
+        let modifiedline: &str = &currentline[8..];
+        // modifiedline = modifiedline.replace(" ", "");
+        // print!("{} ", modifiedline);
+        let linevec: Vec<&str> = modifiedline.split(|c| c == ';' || c == ',').collect();
+        let mut maxred: i32;
+        let mut maxgreen: i32;
+        let mut maxblue: i32;
+        for i in 0..linevec.len() {
+            if linevec[i].contains("red") {
+                // print!("{} ", linevec[i]);
+                for j in 0..linevec[i].len() {
+                    if linevec[i].chars().nth(j).unwrap().is_ascii_digit() {
+                        print!("{} ", linevec[i].chars().nth(j).unwrap());
+                    }
+                }
+            }
+            // print!("{} ", linevec[i]);
+        }
+        // println!("\nmodifiedline: {:?}", linevec[1]);
 
         // for color_str in &color {
         //     if modifiedline.contains(color_str) {

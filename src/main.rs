@@ -15,7 +15,9 @@ fn main() {
             return;
         }
     };
-
+    // i will probably need to make everything a array // hashmap? // vector?
+    // with array i could use index to play with it
+    // if it touch even one digit the whole number is valid
     // read first line
     let lines: std::str::Lines<'_> = contents.lines();
     let mut number_final: Vec<i32> = Vec::new();

@@ -8,13 +8,13 @@ fn main() {
     #![allow(unused_imports)]
     #![allow(unused_assignments)]
     let start: Instant = Instant::now();
-    print!("Hello, world!\n");
+
     // read file
     let filepath: &str = "./input3.txt";
     let contents: String = match fs::read_to_string(filepath) {
         Ok(contents) => contents,
         Err(e) => {
-            eprintln!("Failed to read file1: {}", e);
+            eprintln!("Failed to read file: {}", e);
             return;
         }
     };

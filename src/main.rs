@@ -30,6 +30,14 @@ fn main() {
         count: Option<bool>,
     }
 
+    struct Symbole {
+        symbole: char,
+        index: i32,
+        line: i32,
+    }
+
+    let mut symboles: Vec<Symbole> = Vec::new();
+
     // read first line
     let lines: std::str::Lines<'_> = contents.lines();
 
@@ -72,6 +80,12 @@ fn main() {
                     } else {
                         current_number.push(char);
                     }
+                } else {
+                    symboles.push(Symbole {
+                        symbole: char,
+                        index: current_index,
+                        line: current_line,
+                    });
                 }
             }
         }
@@ -80,7 +94,7 @@ fn main() {
         end_index = -1;
         current_number = "".to_string();
     }
-    print!("\n{}", numbers[10].number);
+    print!("\n{}", symboles[6].symbole);
 
     let duration: std::time::Duration = start.elapsed();
     println!("\nTime elapsed in whole program is: {:?}", duration);

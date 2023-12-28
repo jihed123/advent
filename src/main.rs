@@ -23,10 +23,11 @@ fn main() {
     // if it touch even one digit the whole number is valid
 
     struct Number {
-        number: Vec<i32>,
+        number: String,
         start_index: i32,
         end_index: i32,
         line: i32,
+        count: Option<bool>,
     }
 
     // read first line
@@ -36,7 +37,7 @@ fn main() {
 
     let mut numbers: Vec<Number> = Vec::new();
     let mut current_number_on_array: i32 = -1;
-    for currentline in lines.take(1) {
+    for currentline in lines.take(2) {
         print!("{} ", currentline);
         current_line += 1;
         // let mut number = Vec::new();
@@ -52,13 +53,14 @@ fn main() {
                 if current_number == "" {
                     continue;
                 } else {
-                    end_index = current_index;
+                    end_index = current_index - 1;
                     current_number_on_array += 1;
                     numbers.push(Number {
-                        number: Vec::new(), // to fix
+                        number: current_number, // to fix
                         start_index: start_index,
                         end_index: end_index,
                         line: current_line,
+                        count: None,
                     });
                     current_number = "".to_string();
                 }
@@ -78,7 +80,7 @@ fn main() {
         end_index = -1;
         current_number = "".to_string();
     }
-    print!("\n{}\n", numbers[1].end_index);
+    print!("\n{}", numbers[10].number);
 
     let duration: std::time::Duration = start.elapsed();
     println!("\nTime elapsed in whole program is: {:?}", duration);

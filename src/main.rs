@@ -10,7 +10,7 @@ fn main() {
     let start: Instant = Instant::now();
     print!("Hello, world!\n");
     // read file
-    let filepath: &str = "./input3.txt";
+    let filepath: &str = "c:/a/input3.txt";
     let contents: String = match fs::read_to_string(filepath) {
         Ok(contents) => contents,
         Err(e) => {
@@ -45,7 +45,7 @@ fn main() {
 
     let mut numbers: Vec<Number> = Vec::new();
     let mut current_number_on_array: i32 = -1;
-    for currentline in lines.take(1) {
+    for currentline in lines.take(7) {
         print!("{} ", currentline);
         current_line += 1;
         // let mut number = Vec::new();
@@ -117,7 +117,6 @@ fn main() {
         //                 index: current_index,
         //                 line: current_line,
         //             });
-
         //             // end_index = current_index - 1;
         //             // current_number_on_array += 1;
         //             // current_number = "".to_string();
@@ -133,13 +132,17 @@ fn main() {
     for symbole in symboles.iter() {
         for number in numbers.iter() {
             if symbole.line == number.line {
+                // if number.line == 6 && symbole.symbole == '*' {
+                //     // print!("{} ", number.number);
+                // }
+
                 if (symbole.index - 1 >= number.start_index
-                    && symbole.index - 1 <= number.end_index)
-                    || (symbole.index + 1 <= number.start_index
-                        && symbole.index >= number.end_index)
+                    && symbole.index - 1 == number.end_index)
+                    || (symbole.index + 1 == number.start_index
+                        && symbole.index + 1 <= number.end_index)
                 {
                     if number.count == None {
-                        print!("{} ", number.number);
+                        print!("\n{} ", number.number);
                         print!("{} ", symbole.symbole);
                         // number.count = Some(true);
                     } else {
@@ -149,6 +152,11 @@ fn main() {
             }
         }
     }
+    // for number in numbers.iter() {
+    //     if number.count == None && number.line == 6 {
+    //         print!("{} ", number.number);
+    //     }
+    // }
 
     // print!("\n{}", symboles[6].symbole);
 

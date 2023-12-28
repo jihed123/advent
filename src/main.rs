@@ -18,9 +18,6 @@ fn main() {
             return;
         }
     };
-    // i will probably need to make everything a array // hashmap? // vector?
-    // with array i could use index to play with it
-    // if it touch even one digit the whole number is valid
 
     struct Number {
         number: String,
@@ -88,41 +85,6 @@ fn main() {
             }
         }
 
-        //     if char == '.' {
-        //         if current_number == "" {
-        //             continue;
-        //         } else {
-        //             end_index = current_index - 1;
-        //             current_number_on_array += 1;
-        //             numbers.push(Number {
-        //                 number: current_number, // to fix
-        //                 start_index: start_index,
-        //                 end_index: end_index,
-        //                 line: current_line,
-        //                 count: None,
-        //             });
-        //             current_number = "".to_string();
-        //         }
-        //     } else {
-        //         if char.is_numeric() == true {
-        //             if current_number == "" {
-        //                 start_index = current_index;
-        //                 current_number = char.to_string();
-        //             } else {
-        //                 current_number.push(char);
-        //             }
-        //         } else {
-        //             symboles.push(Symbole {
-        //                 symbole: char,
-        //                 index: current_index,
-        //                 line: current_line,
-        //             });
-        //             // end_index = current_index - 1;
-        //             // current_number_on_array += 1;
-        //             // current_number = "".to_string();
-        //         }
-        //     }
-        // }
         current_index = -1;
         start_index = -1;
         end_index = -1;
@@ -132,10 +94,6 @@ fn main() {
     for symbole in symboles.iter() {
         for number in numbers.iter() {
             if symbole.line == number.line {
-                // if number.line == 6 && symbole.symbole == '*' {
-                //     // print!("{} ", number.number);
-                // }
-
                 if (symbole.index - 1 >= number.start_index
                     && symbole.index - 1 == number.end_index)
                     || (symbole.index + 1 == number.start_index
@@ -152,13 +110,6 @@ fn main() {
             }
         }
     }
-    // for number in numbers.iter() {
-    //     if number.count == None && number.line == 6 {
-    //         print!("{} ", number.number);
-    //     }
-    // }
-
-    // print!("\n{}", symboles[6].symbole);
 
     let duration: std::time::Duration = start.elapsed();
     println!("\nTime elapsed in whole program is: {:?}", duration);

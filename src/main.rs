@@ -91,8 +91,8 @@ fn main() {
         current_number = "".to_string();
     }
 
-    for symbole in symboles.iter() {
-        for number in numbers.iter() {
+    for symbole in symboles.iter_mut() {
+        for number in numbers.iter_mut() {
             if symbole.line == number.line {
                 if (symbole.index - 1 >= number.start_index
                     && symbole.index - 1 == number.end_index)
@@ -100,17 +100,43 @@ fn main() {
                         && symbole.index + 1 <= number.end_index)
                 {
                     if number.count == None {
-                        print!("\n{} ", number.number);
-                        print!("{} ", symbole.symbole);
-                        // number.count = Some(true);
+                        // print!("\n{} ", number.number);
+                        // print!("{} ", symbole.symbole);
+                        number.count = Some(true);
                     } else {
-                        // number.count = Some(false);
+                        number.count = Some(false);
+                    }
+                }
+            }
+            if symbole.line + 1 == number.line {
+                if (symbole.index - 1 >= number.start_index
+                    && symbole.index - 1 == number.end_index)
+                    || (symbole.index + 1 == number.start_index
+                        && symbole.index + 1 <= number.end_index)
+                {
+                    if number.count == None {
+                        // print!("\n{} ", number.number);
+                        // print!("{} ", symbole.symbole);
+                        number.count = Some(true);
+                    } else {
+                        number.count = Some(false);
                     }
                 }
             }
         }
     }
-
+    let mut count: i32 = 0;
+    for number in numbers.iter() {
+        if number.count == Some(true) {
+            // if number.number == "430" {
+            //     print!("\n{} ", number.number);
+            // }
+            print!("\n{} ", number.number);
+            // number.count = Some(false);
+            count += number.number.parse::<i32>().unwrap();
+        }
+    }
+    print!("\n{} ", count);
     let duration: std::time::Duration = start.elapsed();
     println!("\nTime elapsed in whole program is: {:?}", duration);
 }
